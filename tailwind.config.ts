@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -52,15 +53,12 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
+				neon: {
+					cyan: '#00ffff',
+					purple: '#ff00ff',
+					yellow: '#ffff00',
+					pink: '#ff0080',
+					blue: '#0080ff'
 				}
 			},
 			borderRadius: {
@@ -69,26 +67,32 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			keyframes: {
-				'accordion-down': {
-					from: {
-						height: '0'
+				'float': {
+					'0%, 100%': { transform: 'translateY(0px)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'pulse-neon': {
+					'0%, 100%': { 
+						boxShadow: '0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor'
 					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
+					'50%': { 
+						boxShadow: '0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor'
 					}
 				},
-				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
-					},
-					to: {
-						height: '0'
-					}
+				'slide-up': {
+					'0%': { transform: 'translateY(20px)', opacity: '0' },
+					'100%': { transform: 'translateY(0)', opacity: '1' }
+				},
+				'glow': {
+					'0%, 100%': { filter: 'brightness(1)' },
+					'50%': { filter: 'brightness(1.2)' }
 				}
 			},
 			animation: {
-				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'float': 'float 3s ease-in-out infinite',
+				'pulse-neon': 'pulse-neon 2s ease-in-out infinite',
+				'slide-up': 'slide-up 0.5s ease-out',
+				'glow': 'glow 2s ease-in-out infinite'
 			}
 		}
 	},
