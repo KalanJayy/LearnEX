@@ -7,9 +7,10 @@ import UserMenu from './UserMenu';
 
 interface AuthenticatedHeroProps {
   onStartJourney: () => void;
+  onViewSavedRoadmaps: () => void;
 }
 
-const AuthenticatedHero: React.FC<AuthenticatedHeroProps> = ({ onStartJourney }) => {
+const AuthenticatedHero: React.FC<AuthenticatedHeroProps> = ({ onStartJourney, onViewSavedRoadmaps }) => {
   const { user } = useAuth();
   const displayName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'there';
 
@@ -37,29 +38,38 @@ const AuthenticatedHero: React.FC<AuthenticatedHeroProps> = ({ onStartJourney })
 
           {/* Action Cards */}
           <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="glass-effect p-6 rounded-2xl hover:bg-muted/30 transition-colors">
+            <button 
+              onClick={onViewSavedRoadmaps}
+              className="glass-effect p-6 rounded-2xl hover:bg-muted/30 transition-colors text-left"
+            >
               <BookOpen className="w-12 h-12 text-neon-cyan mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">Continue Learning</h3>
               <p className="text-sm text-muted-foreground">
-                Pick up where you left off on your current roadmap
+                Pick up where you left off on your saved roadmaps
               </p>
-            </div>
+            </button>
             
-            <div className="glass-effect p-6 rounded-2xl hover:bg-muted/30 transition-colors">
+            <button 
+              onClick={onStartJourney}
+              className="glass-effect p-6 rounded-2xl hover:bg-muted/30 transition-colors text-left"
+            >
               <Target className="w-12 h-12 text-neon-purple mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">New Goal</h3>
               <p className="text-sm text-muted-foreground">
                 Set a new career goal and generate a fresh roadmap
               </p>
-            </div>
+            </button>
             
-            <div className="glass-effect p-6 rounded-2xl hover:bg-muted/30 transition-colors">
+            <button 
+              onClick={onViewSavedRoadmaps}
+              className="glass-effect p-6 rounded-2xl hover:bg-muted/30 transition-colors text-left"
+            >
               <TrendingUp className="w-12 h-12 text-neon-yellow mx-auto mb-4" />
               <h3 className="text-lg font-semibold mb-2">Track Progress</h3>
               <p className="text-sm text-muted-foreground">
                 View your learning analytics and achievements
               </p>
-            </div>
+            </button>
           </div>
 
           <Button
