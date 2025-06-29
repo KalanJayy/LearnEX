@@ -54,7 +54,7 @@ const SavedRoadmaps: React.FC<SavedRoadmapsProps> = ({ onSelectRoadmap }) => {
         id: item.id,
         title: item.title,
         goal: item.goal,
-        steps: Array.isArray(item.steps) ? item.steps as RoadmapStep[] : [],
+        steps: Array.isArray(item.steps) ? item.steps as unknown as RoadmapStep[] : [],
         created_at: item.created_at || '',
         updated_at: item.updated_at || ''
       }));
