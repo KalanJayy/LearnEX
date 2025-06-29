@@ -2,7 +2,11 @@
 import React from 'react';
 import { Sparkles, Target, Zap } from 'lucide-react';
 
-const Hero = () => {
+interface HeroProps {
+  onStartJourney: () => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ onStartJourney }) => {
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Animated background elements */}
@@ -54,7 +58,11 @@ const Hero = () => {
         </div>
 
         {/* CTA Button */}
-        <button className="group relative px-8 py-4 bg-gradient-to-r from-neon-cyan to-neon-purple text-black font-bold text-lg rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl animate-slide-up" style={{ animationDelay: '1s' }}>
+        <button 
+          onClick={onStartJourney}
+          className="group relative px-8 py-4 bg-gradient-to-r from-neon-cyan to-neon-purple text-black font-bold text-lg rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl animate-slide-up" 
+          style={{ animationDelay: '1s' }}
+        >
           <span className="relative z-10">Start Your Journey</span>
           <div className="absolute inset-0 bg-gradient-to-r from-neon-purple to-neon-pink opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
         </button>
