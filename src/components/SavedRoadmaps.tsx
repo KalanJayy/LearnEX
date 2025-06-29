@@ -5,11 +5,21 @@ import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
+interface RoadmapStep {
+  id: number;
+  title: string;
+  description: string;
+  duration: string;
+  skills: string[];
+  resources: string[];
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+}
+
 interface SavedRoadmap {
   id: string;
   title: string;
   goal: string;
-  steps: any[];
+  steps: RoadmapStep[];
   created_at: string;
   updated_at: string;
 }
@@ -38,7 +48,18 @@ const SavedRoadmaps: React.FC<SavedRoadmapsProps> = ({ onSelectRoadmap }) => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setRoadmaps(data || []);
+      
+      // Transform the data to match our interface
+      const transformedData: SavedRoadmap[] = (data || []).map(item => ({
+        id: item.id,
+        title: item.title,
+        goal: item.goal,
+        steps: Array.isArray(item.steps) ? item.steps as RoadmapStep[] : [],
+        created_at: item.created_at || '',
+        updated_at: item.updated_at || ''
+      }));
+      
+      setRoadmaps(transformedData);
     } catch (error) {
       console.error('Error loading roadmaps:', error);
       toast({

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, Clock, Star, BookOpen, Award, ArrowRight, Save, Check } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
@@ -15,17 +14,19 @@ interface RoadmapStep {
   difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
 }
 
-interface RoadmapDisplayProps {
-  goal: string;
-  onReset: () => void;
-}
-
 interface SavedRoadmap {
   id: string;
   title: string;
   goal: string;
   steps: RoadmapStep[];
-  user_id: string;
+  created_at: string;
+  updated_at: string;
+}
+
+interface RoadmapDisplayProps {
+  goal: string;
+  onReset: () => void;
+  savedRoadmap?: SavedRoadmap | null;
 }
 
 interface StepProgress {
@@ -34,15 +35,15 @@ interface StepProgress {
   notes?: string;
 }
 
-const RoadmapDisplay: React.FC<RoadmapDisplayProps> = ({ goal, onReset }) => {
+const RoadmapDisplay: React.FC<RoadmapDisplayProps> = ({ goal, onReset, savedRoadmap }) => {
   const { user } = useAuth();
   const { toast } = useToast();
   const [isSaving, setIsSaving] = useState(false);
-  const [savedRoadmapId, setSavedRoadmapId] = useState<string | null>(null);
+  const [savedRoadmapId, setSavedRoadmapId] = useState<string | null>(savedRoadmap?.id || null);
   const [stepProgress, setStepProgress] = useState<Record<number, StepProgress>>({});
 
-  // Mock roadmap data - in real app this would come from AI
-  const roadmapSteps: RoadmapStep[] = [
+  // Use saved roadmap steps if available, otherwise use mock data
+  const roadmapSteps: RoadmapStep[] = savedRoadmap?.steps || [
     {
       id: 1,
       title: "Foundation & Assessment",
@@ -142,7 +143,7 @@ const RoadmapDisplay: React.FC<RoadmapDisplayProps> = ({ goal, onReset }) => {
           user_id: user.id,
           title: roadmapTitle,
           goal: goal,
-          steps: roadmapSteps
+          steps: roadmapSteps as any
         })
         .select('id')
         .single();
