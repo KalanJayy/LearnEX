@@ -22,8 +22,8 @@ const AuthenticatedHero: React.FC<AuthenticatedHeroProps> = ({ onStartJourney, o
       <div className="absolute inset-0 bg-gradient-to-br from-purple-900/80 via-blue-900/60 to-indigo-900/80">
         <div className="absolute inset-0" style={{
           backgroundImage: `
-            radial-gradient(circle at 20% 50%, rgba(147, 51, 234, 0.4) 0%, transparent 50%),
-            radial-gradient(circle at 80% 20%, rgba(79, 70, 229, 0.4) 0%, transparent 50%),
+            radial-gradient(circle at 20% 50%, rgba(255, 51, 234, 0.4) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(0, 70, 229, 0.8) 0%, transparent 50%),
             radial-gradient(circle at 40% 80%, rgba(219, 39, 119, 0.3) 0%, transparent 50%)
           `
         }} />
@@ -45,7 +45,7 @@ const AuthenticatedHero: React.FC<AuthenticatedHeroProps> = ({ onStartJourney, o
       <nav className="relative z-10 flex justify-between items-center p-6">
         {/* Left side - Logo */}
         <div className="flex items-center space-x-2">
-          <Target className="w-8 h-8 text-neon-cyan" />
+          <Target className="w-8 h-8 text-neon-red" />
           <span className="text-2xl font-bold gradient-text">LearnEX</span>
         </div>
         
