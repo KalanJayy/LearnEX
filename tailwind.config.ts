@@ -53,7 +53,7 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
-				// Purple/Pink theme colors
+				// Original Purple theme colors
 				purple: {
 					50: '#faf5ff',
 					100: '#f3e8ff',
@@ -80,7 +80,14 @@ export default {
 					900: '#831843',
 					950: '#500724'
 				},
-				// Custom theme colors
+				// Custom neon colors
+				neon: {
+					cyan: '#00ffff',
+					purple: '#bf00ff',
+					pink: '#ff00bf',
+					blue: '#0080ff'
+				},
+				// Original theme colors
 				theme: {
 					primary: '#7b2cbf',
 					secondary: '#c77dff',
