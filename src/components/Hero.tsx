@@ -24,10 +24,10 @@ const Hero: React.FC<HeroProps> = ({ onStartJourney }) => {
       <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
         {/* Logo/Brand */}
         <div className="flex items-center justify-center mb-8">
-          <Zap className="w-12 h-12 text-neon-cyan mr-3 animate-pulse-neon" />
-          <img src="img.png" alt="" />
+          {/* <Zap className="w-12 h-12 text-neon-cyan mr-3 animate-pulse-neon" /> */}
+          <img src="img.png" alt="" className="w-[180px] h-[150px]  m-0 p-0  self-start mt-16"/>
           <h1 className="text-6xl md:text-8xl font-bold gradient-text tracking-wider">
-            LEARNEX
+            LearnEX
           </h1>
         </div>
 
@@ -83,14 +83,13 @@ const Hero: React.FC<HeroProps> = ({ onStartJourney }) => {
         </div>
 
         {/* CTA Button */}
-        <button
-          onClick={onStartJourney}
-          className="group relative px-8 py-4 bg-gradient-to-r from-neon-cyan to-neon-purple text-black font-bold text-lg rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl animate-slide-up"
-          style={{ animationDelay: "1s" }}
-        >
-          <span className="relative z-10">Start Your Journey</span>
-          <div className="absolute inset-0 bg-gradient-to-r from-neon-purple to-neon-pink opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
-        </button>
+       <button
+  onClick={onStartJourney}
+  className="group relative px-8 py-4 bg-transparent border-2 border-purple-500 text-white font-bold text-lg rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-purple-500 animate-slide-up"
+  style={{ animationDelay: "1s" }}
+>
+  <span className="relative z-10">Start Your Journey</span>
+<div className="absolute inset-0 bg-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div></button>
       </div>
     </div>
   );
