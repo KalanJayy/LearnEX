@@ -16,12 +16,12 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-purple-900 to-violet-800">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950">
       <div className="text-center max-w-md mx-auto p-6">
         <div className="mb-8">
-          <h1 className="text-8xl font-bold text-neon-cyan neon-text mb-4">404</h1>
-          <p className="text-2xl text-white mb-2">Oops! Page not found</p>
-          <p className="text-gray-300">
+          <h1 className="text-8xl font-bold gradient-text mb-4">404</h1>
+          <p className="text-2xl text-muted-foreground mb-2">Oops! Page not found</p>
+          <p className="text-muted-foreground">
             The page you're looking for doesn't exist or has been moved.
           </p>
         </div>
@@ -30,7 +30,7 @@ const NotFound = () => {
           <Button
             variant="ghost"
             onClick={() => navigate(-1)}
-            className="text-neon-cyan hover:text-neon-purple transition-colors neon-border"
+            className="text-neon-cyan hover:text-neon-purple transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Go Back
@@ -38,7 +38,7 @@ const NotFound = () => {
           
           <Button
             onClick={() => navigate('/')}
-            className="bg-gradient-to-r from-neon-purple to-neon-cyan text-white font-bold neon-border"
+            className="bg-gradient-to-r from-neon-cyan to-neon-purple text-black font-bold"
           >
             <Home className="w-4 h-4 mr-2" />
             Return to Home
