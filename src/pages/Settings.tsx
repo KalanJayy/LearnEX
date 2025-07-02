@@ -1,14 +1,26 @@
-
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import { useAuth } from '@/contexts/AuthContext';
-import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Settings as SettingsIcon, Bell, Shield, Palette, Trash2 } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
+import {
+  ArrowLeft,
+  Settings as SettingsIcon,
+  Bell,
+  Shield,
+  Palette,
+  Trash2,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,7 +31,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+} from "@/components/ui/alert-dialog";
 
 const Settings = () => {
   const { signOut } = useAuth();
@@ -29,33 +41,33 @@ const Settings = () => {
     notifications: true,
     emailUpdates: false,
     darkMode: true,
-    autoSave: true
+    autoSave: true,
   });
 
   const handleSettingChange = (key: string, value: boolean) => {
-    setSettings(prev => ({ ...prev, [key]: value }));
+    setSettings((prev) => ({ ...prev, [key]: value }));
     toast({
       title: "Setting updated",
-      description: `${key} has been ${value ? 'enabled' : 'disabled'}.`
+      description: `${key} has been ${value ? "enabled" : "disabled"}.`,
     });
   };
 
   const handleDeleteAccount = async () => {
     toast({
       title: "Account deletion requested",
-      description: "This feature will be implemented soon. Please contact support for now.",
-      variant: "destructive"
+      description:
+        "This feature will be implemented soon. Please contact support for now.",
+      variant: "destructive",
     });
   };
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen p-6 bg-gradient-to-br from-black to-purple-900/80">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <Button
-            variant="ghost"
-            onClick={() => navigate('/')}
-            className="text-neon-cyan hover:text-neon-purple transition-colors"
+            onClick={() => navigate("/")}
+            className="text-white hover:text-neon-purple transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Dashboard
@@ -64,7 +76,9 @@ const Settings = () => {
 
         <div className="space-y-6">
           <div>
-            <h1 className="text-3xl font-bold gradient-text mb-2">Settings</h1>
+            <h1 className="text-3xl font-bold text-purple-500 mb-2">
+              Settings
+            </h1>
             <p className="text-muted-foreground">
               Manage your account settings and preferences.
             </p>
@@ -92,12 +106,14 @@ const Settings = () => {
                 <Switch
                   id="notifications"
                   checked={settings.notifications}
-                  onCheckedChange={(value) => handleSettingChange('notifications', value)}
+                  onCheckedChange={(value) =>
+                    handleSettingChange("notifications", value)
+                  }
                 />
               </div>
-              
+
               <Separator />
-              
+
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
                   <Label htmlFor="emailUpdates">Email Updates</Label>
@@ -108,7 +124,9 @@ const Settings = () => {
                 <Switch
                   id="emailUpdates"
                   checked={settings.emailUpdates}
-                  onCheckedChange={(value) => handleSettingChange('emailUpdates', value)}
+                  onCheckedChange={(value) =>
+                    handleSettingChange("emailUpdates", value)
+                  }
                 />
               </div>
             </CardContent>
@@ -136,7 +154,9 @@ const Settings = () => {
                 <Switch
                   id="darkMode"
                   checked={settings.darkMode}
-                  onCheckedChange={(value) => handleSettingChange('darkMode', value)}
+                  onCheckedChange={(value) =>
+                    handleSettingChange("darkMode", value)
+                  }
                 />
               </div>
             </CardContent>
@@ -164,7 +184,9 @@ const Settings = () => {
                 <Switch
                   id="autoSave"
                   checked={settings.autoSave}
-                  onCheckedChange={(value) => handleSettingChange('autoSave', value)}
+                  onCheckedChange={(value) =>
+                    handleSettingChange("autoSave", value)
+                  }
                 />
               </div>
             </CardContent>
@@ -188,15 +210,21 @@ const Settings = () => {
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
                     <AlertDialogDescription>
-                      This action cannot be undone. This will permanently delete your account
-                      and remove all your data including saved roadmaps and progress.
+                      This action cannot be undone. This will permanently delete
+                      your account and remove all your data including saved
+                      roadmaps and progress.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleDeleteAccount} className="bg-red-600 hover:bg-red-700">
+                    <AlertDialogAction
+                      onClick={handleDeleteAccount}
+                      className="bg-red-500 hover:bg-red-900"
+                    >
                       Delete Account
                     </AlertDialogAction>
                   </AlertDialogFooter>
