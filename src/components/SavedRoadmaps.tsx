@@ -126,7 +126,7 @@ const SavedRoadmaps: React.FC<SavedRoadmapsProps> = ({ onSelectRoadmap }) => {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold gradient-text mb-6">Your Saved Roadmaps</h2>
+      <h2 className="text-2xl font-bold gradient-text-3 mb-6">Your Saved Roadmaps</h2>
       
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {roadmaps.map((roadmap) => (
@@ -161,7 +161,7 @@ const SavedRoadmaps: React.FC<SavedRoadmapsProps> = ({ onSelectRoadmap }) => {
             
             <button
               onClick={() => onSelectRoadmap(roadmap)}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-neon-cyan to-neon-purple text-black text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2  bg-transparent border-2 border-purple-500 text-white    text-sm font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:bg-purple-500"
             >
               Continue Learning
               <ArrowRight className="w-4 h-4" />

@@ -73,13 +73,20 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
   }
+  .glass-effect-3 {
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+   
+    border-radius: 16px;
+}
   
   .gradient-neon {
     background: linear-gradient(135deg, #ff0909 0%, #ff00ff 50%, #ffff00 100%);
   }
   
   .gradient-text {
-    background: linear-gradient(135deg, #710493 0%, #bf21f4 50%, #ffffff 100%);
+    background: linear-gradient(135deg, #710493 0%, #bf21f4 50%, #d058f9 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

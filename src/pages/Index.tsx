@@ -93,7 +93,7 @@ const Index = () => {
             <div className="mb-8">
               <button
                 onClick={handleBackToHero}
-                className="text-neon-cyan hover:text-neon-purple transition-colors"
+                className="text-white hover:text-neon-purple transition-colors"
               >
                 ← Back to Dashboard
               </button>

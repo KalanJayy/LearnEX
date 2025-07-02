@@ -36,7 +36,7 @@ const GoalInput: React.FC<GoalInputProps> = ({ onSubmit }) => {
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-6">
-            <Brain className="w-16 h-16 text-neon-cyan animate-pulse-neon mr-4" />
+            {/* <Brain className="w-16 h-16 text-neon-cyan animate-pulse-neon mr-4" /> */}
             <h2 className="text-4xl md:text-6xl font-bold gradient-text">
               Define Your Future
             </h2>
@@ -59,7 +59,7 @@ const GoalInput: React.FC<GoalInputProps> = ({ onSubmit }) => {
               value={goal}
               onChange={(e) => setGoal(e.target.value)}
               placeholder="I want to become a senior software engineer specializing in AI and machine learning. I'm currently a junior developer with 2 years of experience in React and Node.js..."
-              className="min-h-32 text-lg bg-muted/20 border-border/50 focus:border-neon-cyan focus:ring-neon-cyan/50 resize-none"
+              className="flex h-10 w-full rounded-md  focus-visible:!ring-purple-500 bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm min-h-32"
               disabled={isLoading}
             />
             
@@ -71,7 +71,7 @@ const GoalInput: React.FC<GoalInputProps> = ({ onSubmit }) => {
               <Button
                 type="submit"
                 disabled={!goal.trim() || isLoading}
-                className="group relative px-8 py-3 bg-gradient-to-r from-neon-cyan to-neon-purple text-black font-bold rounded-full transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="group relative px-8 py-4 bg-transparent border-2 border-purple-500 text-white font-bold text-lg rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-purple-500 animate-slide-up"
               >
                 {isLoading ? (
                   <div className="flex items-center">

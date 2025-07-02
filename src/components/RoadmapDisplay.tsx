@@ -243,7 +243,7 @@ const RoadmapDisplay: React.FC<RoadmapDisplayProps> = ({ goal, onReset, savedRoa
         {/* Header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center mb-6">
-            <Award className="w-16 h-16 text-neon-cyan animate-pulse-neon mr-4" />
+            {/* <Award className="w-16 h-16 text-neon-cyan animate-pulse-neon mr-4" /> */}
             <h2 className="text-4xl md:text-6xl font-bold gradient-text">
               Your Roadmap
             </h2>
@@ -256,7 +256,7 @@ const RoadmapDisplay: React.FC<RoadmapDisplayProps> = ({ goal, onReset, savedRoa
                 <span>Progress: {getCompletedSteps()}/{roadmapSteps.length} steps completed</span>
                 <div className="w-32 bg-muted rounded-full h-2">
                   <div 
-                    className="bg-gradient-to-r from-neon-cyan to-neon-purple h-2 rounded-full transition-all duration-300"
+                    className="bg-gradient-to-r from-purple-500 to-neon-purple h-2 rounded-full transition-all duration-300"
                     style={{ width: `${(getCompletedSteps() / roadmapSteps.length) * 100}%` }}
                   ></div>
                 </div>
@@ -268,7 +268,7 @@ const RoadmapDisplay: React.FC<RoadmapDisplayProps> = ({ goal, onReset, savedRoa
         {/* Timeline */}
         <div className="relative">
           {/* Vertical line */}
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-neon-cyan via-neon-purple to-neon-pink"></div>
+          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-500 via-neon-purple to-[#ffffff]"></div>
 
           {roadmapSteps.map((step, index) => {
             const isCompleted = stepProgress[step.id]?.completed;
@@ -279,14 +279,14 @@ const RoadmapDisplay: React.FC<RoadmapDisplayProps> = ({ goal, onReset, savedRoa
                   className={`relative z-10 flex items-center justify-center w-16 h-16 border-4 rounded-full mr-8 cursor-pointer transition-all duration-300 ${
                     isCompleted 
                       ? 'bg-green-500 border-green-500' 
-                      : 'bg-card border-neon-cyan animate-pulse-neon'
+                      : 'bg-card border-purple-500 animate-pulse-neon'
                   }`}
                   onClick={() => savedRoadmapId && toggleStepCompletion(step.id)}
                 >
                   {isCompleted ? (
                     <Check className="w-8 h-8 text-white" />
                   ) : (
-                    <span className="text-lg font-bold text-neon-cyan">{step.id}</span>
+                    <span className="text-lg font-bold text-purple-100">{step.id}</span>
                   )}
                 </div>
 
@@ -296,7 +296,7 @@ const RoadmapDisplay: React.FC<RoadmapDisplayProps> = ({ goal, onReset, savedRoa
                 }`} style={{ animationDelay: `${index * 0.2}s` }}>
                   <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6">
                     <div className="flex-1">
-                      <h3 className={`text-2xl font-bold mb-2 ${isCompleted ? 'line-through text-muted-foreground' : 'gradient-text'}`}>
+                      <h3 className={`text-2xl font-bold mb-2 ${isCompleted ? 'line-through text-muted-foreground' : 'gradient-text-3'}`}>
                         {step.title}
                       </h3>
                       <p className="text-muted-foreground mb-4">{step.description}</p>
@@ -367,7 +367,7 @@ const RoadmapDisplay: React.FC<RoadmapDisplayProps> = ({ goal, onReset, savedRoa
               <button 
                 onClick={saveRoadmap}
                 disabled={isSaving || !user}
-                className="px-8 py-3 bg-gradient-to-r from-neon-cyan to-neon-purple text-black font-bold rounded-full transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-[290px] flex group relative px-8 py-4 bg-transparent border-2 border-purple-500 text-white font-bold text-lg rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-purple-500 animate-slide-up "
               >
                 {isSaving ? (
                   <>
@@ -376,8 +376,9 @@ const RoadmapDisplay: React.FC<RoadmapDisplayProps> = ({ goal, onReset, savedRoa
                   </>
                 ) : (
                   <>
-                    <Save className="w-5 h-5" />
-                    Save & Track Progress
+                    <Save className="w-5 h-5 mt-1" />
+                    <span className='ml-3'> Save & Track Progress</span>
+                   
                   </>
                 )}
               </button>

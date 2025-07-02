@@ -117,8 +117,8 @@ const ChatInterface = () => {
   return (
     <Card className="w-full max-w-4xl mx-auto h-[600px] glass-effect">
       <CardHeader className="border-b border-border/50">
-        <CardTitle className="flex items-center gap-2 gradient-text">
-          <Bot className="w-6 h-6 text-neon-cyan" />
+        <CardTitle className="flex items-center gap-2 text-white">
+          <Bot className="w-6 h-6 text-neon-purple" />
           LearnEX AI Assistant
         </CardTitle>
       </CardHeader>
@@ -140,11 +140,11 @@ const ChatInterface = () => {
                 >
                   <div className="flex-shrink-0">
                     {message.role === 'user' ? (
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-neon-cyan to-neon-purple flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#deabf7] to-[#9332c4] flex items-center justify-center">
                         <User className="w-4 h-4 text-black" />
                       </div>
                     ) : (
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-neon-purple to-neon-pink flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-r from-neon-purple to-[#9332c4] flex items-center justify-center">
                         <Bot className="w-4 h-4 text-black" />
                       </div>
                     )}
@@ -153,7 +153,7 @@ const ChatInterface = () => {
                   <div
                     className={`p-3 rounded-2xl ${
                       message.role === 'user'
-                        ? 'bg-gradient-to-r from-neon-cyan to-neon-purple text-black'
+                        ? 'glass-effect-3'
                         : 'glass-effect'
                     }`}
                   >

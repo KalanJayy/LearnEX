@@ -93,23 +93,23 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950">
-      <div className="max-w-md w-full">
+<div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-black to-purple-900/80">
+  <div className="max-w-md w-full">
         {/* Header */}
         <div className="text-center mb-8">
-          <Button
-            variant="ghost"
-            onClick={() => navigate('/')}
-            className="mb-6 text-neon-cyan hover:text-neon-purple transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Home
-          </Button>
+          <Button 
+  
+  onClick={() => navigate('/')} 
+  className="mb-6 !text-white hover:!text-[#d058f9] transition-colors"
+>
+  <ArrowLeft className="w-4 h-4 mr-2" />
+  Back to Home
+</Button>
           
-          <div className="flex items-center justify-center mb-6">
-            <Brain className="w-12 h-12 text-neon-cyan animate-pulse-neon mr-3" />
-            <h1 className="text-3xl font-bold gradient-text">LearnEX</h1>
-          </div>
+<div className="flex flex-col items-center justify-center mb-6 gap-0">
+  <img src="public\img.png" alt="" className='w-1/3  m-0 p-0'/>
+  <h1 className="text-4xl font-bold gradient-text -mt-12">LearnEX</h1>
+</div>
           <p className="text-muted-foreground">
             Join thousands of learners on their journey to success
           </p>
@@ -169,10 +169,11 @@ const Auth = () => {
                   
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-neon-cyan to-neon-purple text-black font-bold"
+                    className="w-full bg-transparent border-2 border-purple-500 text-white font-bold hover:scale-105 hover:shadow-2xl hover:bg-purple-500 animate-slide-up"
                     disabled={isLoading}
                   >
                     {isLoading ? "Signing In..." : "Sign In"}
+                    
                   </Button>
                 </form>
               </CardContent>
@@ -242,7 +243,7 @@ const Auth = () => {
                   
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-neon-cyan to-neon-purple text-black font-bold"
+                    className="w-full bg-transparent border-2 border-purple-500 text-white font-bold hover:scale-105 hover:shadow-2xl hover:bg-purple-500 animate-slide-up"
                     disabled={isLoading}
                   >
                     {isLoading ? "Creating Account..." : "Create Account"}

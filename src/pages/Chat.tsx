@@ -28,20 +28,17 @@ const Chat = () => {
     <div className="min-h-screen flex flex-col">
       {/* Navigation */}
       <nav className="flex justify-between items-center p-6">
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 ">
           <Button
-            variant="ghost"
+           
             onClick={() => navigate('/')}
-            className="text-neon-cyan hover:text-neon-purple transition-colors"
+            className="text-white hover:text-neon-purple transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Dashboard
           </Button>
           
-          <div className="flex items-center space-x-2">
-            <Target className="w-8 h-8 text-neon-cyan" />
-            <span className="text-2xl font-bold gradient-text">LearnEX</span>
-          </div>
+         
         </div>
         <UserMenu />
       </nav>

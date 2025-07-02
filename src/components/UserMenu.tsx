@@ -36,7 +36,7 @@ const UserMenu = () => {
         <Button variant="ghost" className="relative h-10 w-10 rounded-full">
           <Avatar className="h-10 w-10">
             <AvatarImage src={user.user_metadata?.avatar_url} alt={displayName} />
-            <AvatarFallback className="bg-gradient-to-r from-neon-cyan to-neon-purple text-black font-bold">
+            <AvatarFallback className="bg-gradient-to-r from-purple-900 to-neon-purple text-black font-bold">
               {getInitials(displayName)}
             </AvatarFallback>
           </Avatar>
