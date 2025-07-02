@@ -1,24 +1,25 @@
-
-import React, { useState } from 'react';
-import { ArrowRight, Brain, Lightbulb } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
+import React, { useState } from "react";
+import { ArrowRight, Brain, Lightbulb } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 interface GoalInputProps {
   onSubmit: (goal: string) => void;
 }
 
 const GoalInput: React.FC<GoalInputProps> = ({ onSubmit }) => {
-  const [goal, setGoal] = useState('');
+  const [goal, setGoal] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!goal.trim()) return;
-    
+
     setIsLoading(true);
     // Simulate AI processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     onSubmit(goal);
     setIsLoading(false);
   };
@@ -27,11 +28,23 @@ const GoalInput: React.FC<GoalInputProps> = ({ onSubmit }) => {
     "Become a Senior Full-Stack Developer",
     "Transition to AI/Machine Learning Engineer",
     "Start a Tech Startup",
-    "Become a Cybersecurity Expert"
+    "Become a Cybersecurity Expert",
   ];
 
+  const navigate = useNavigate();
+
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
+    <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-black to-purple-900/80">
+      <div className="absolute top-4 left-4 z-10 ">
+        <Button
+          // variant="ghost"
+          onClick={() => navigate("/auth")}
+          className="text-white hover:text-neon-purple transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back to Dashboard
+        </Button>
+      </div>
       <div className="max-w-4xl w-full">
         {/* Header */}
         <div className="text-center mb-12">
@@ -42,18 +55,22 @@ const GoalInput: React.FC<GoalInputProps> = ({ onSubmit }) => {
             </h2>
           </div>
           <p className="text-xl text-muted-foreground">
-            Describe your career aspirations and let our AI craft your personalized learning roadmap
+            Describe your career aspirations and let our AI craft your
+            personalized learning roadmap
           </p>
         </div>
 
         {/* Goal Input Form */}
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="glass-effect p-8 rounded-2xl">
-            <label htmlFor="career-goal" className="block text-lg font-semibold mb-4 flex items-center">
+            <label
+              htmlFor="career-goal"
+              className="block text-lg font-semibold mb-4 flex items-center"
+            >
               <Lightbulb className="w-6 h-6 text-neon-yellow mr-2" />
               What's your career goal?
             </label>
-            
+
             <Textarea
               id="career-goal"
               value={goal}
@@ -62,12 +79,12 @@ const GoalInput: React.FC<GoalInputProps> = ({ onSubmit }) => {
               className="flex h-10 w-full rounded-md  focus-visible:!ring-purple-500 bg-background px-3 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm min-h-32"
               disabled={isLoading}
             />
-            
+
             <div className="mt-6 flex flex-col sm:flex-row gap-4 items-center justify-between">
               <p className="text-sm text-muted-foreground">
                 Be specific about your current level, desired role, and timeline
               </p>
-              
+
               <Button
                 type="submit"
                 disabled={!goal.trim() || isLoading}
@@ -91,7 +108,9 @@ const GoalInput: React.FC<GoalInputProps> = ({ onSubmit }) => {
 
         {/* Example Goals */}
         <div className="mt-12">
-          <h3 className="text-lg font-semibold mb-6 text-center">Need inspiration? Try these examples:</h3>
+          <h3 className="text-lg font-semibold mb-6 text-center">
+            Need inspiration? Try these examples:
+          </h3>
           <div className="grid md:grid-cols-2 gap-4">
             {exampleGoals.map((example, index) => (
               <button
