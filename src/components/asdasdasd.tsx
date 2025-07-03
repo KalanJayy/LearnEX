@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const asdasdasd = () => {
-  return (
-    <div>
-        Happy
-    </div>
-  )
-}
+  return <div>Happy</div>;
+};
 
-export default asdasdasd
+export default asdasdasd;
