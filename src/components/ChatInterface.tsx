@@ -29,7 +29,7 @@ const ChatInterface = () => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedModel, setSelectedModel] = useState("openai");
+  const [selectedModel, setSelectedModel] = useState("gemini");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
@@ -139,18 +139,14 @@ const ChatInterface = () => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="openai">
-                  <div className="flex items-center gap-2">
-                    <Brain className="w-4 h-4 text-green-400" />
-                    OpenAI
-                  </div>
-                </SelectItem>
+                
                 <SelectItem value="gemini">
                   <div className="flex items-center gap-2">
                     <Sparkles className="w-4 h-4 text-blue-400" />
                     Gemini
                   </div>
                 </SelectItem>
+               
               </SelectContent>
             </Select>
           </CardTitle>
