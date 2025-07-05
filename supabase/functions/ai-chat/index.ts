@@ -13,67 +13,124 @@ serve(async (req) => {
   }
 
   try {
-    const { message, conversationHistory = [] } = await req.json();
+    const { message, conversationHistory = [], model = 'openai' } = await req.json();
     
     if (!message) {
       throw new Error('Message is required');
     }
 
-    const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
-    if (!openAIApiKey) {
-      throw new Error('OpenAI API key not configured');
-    }
+    console.log('Processing chat message:', message, 'with model:', model);
 
-    console.log('Processing chat message:', message);
+    let aiResponse;
 
-    // Prepare conversation context
-    const messages = [
-      {
-        role: 'system',
-        content: `You are LearnEX AI, a helpful learning and career development assistant. You help users with:
-        - Creating learning roadmaps and career guidance
-        - Answering questions about skills and technologies
-        - Providing study tips and learning strategies
-        - General educational support
-        
-        Keep responses conversational, helpful, and focused on learning and development. Be encouraging and provide actionable advice when possible.`
-      },
-      ...conversationHistory.slice(-10), // Keep last 10 messages for context
-      {
-        role: 'user',
-        content: message
+    if (model === 'gemini') {
+      const geminiApiKey = Deno.env.get('GEMINI_API_KEY');
+      if (!geminiApiKey) {
+        throw new Error('Gemini API key not configured');
       }
-    ];
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${openAIApiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: messages,
-        temperature: 0.7,
-        max_tokens: 500,
-        stream: false,
-      }),
-    });
+      // Prepare conversation context for Gemini
+      const conversationText = conversationHistory
+        .slice(-10)
+        .map((msg: any) => `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`)
+        .join('\n');
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error('OpenAI API error:', errorData);
-      throw new Error(`OpenAI API error: ${response.status}`);
+      const systemPrompt = `You are LearnEX AI, a helpful learning and career development assistant. You help users with:
+- Creating learning roadmaps and career guidance
+- Answering questions about skills and technologies
+- Providing study tips and learning strategies
+- General educational support
+
+Keep responses conversational, helpful, and focused on learning and development. Be encouraging and provide actionable advice when possible.
+
+Previous conversation:
+${conversationText}
+
+Current user message: ${message}`;
+
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${geminiApiKey}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: systemPrompt
+            }]
+          }],
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 500,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Gemini API error:', errorData);
+        throw new Error(`Gemini API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      aiResponse = data.candidates[0].content.parts[0].text;
+
+    } else {
+      // OpenAI logic (existing)
+      const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
+      if (!openAIApiKey) {
+        throw new Error('OpenAI API key not configured');
+      }
+
+      const messages = [
+        {
+          role: 'system',
+          content: `You are LearnEX AI, a helpful learning and career development assistant. You help users with:
+          - Creating learning roadmaps and career guidance
+          - Answering questions about skills and technologies
+          - Providing study tips and learning strategies
+          - General educational support
+          
+          Keep responses conversational, helpful, and focused on learning and development. Be encouraging and provide actionable advice when possible.`
+        },
+        ...conversationHistory.slice(-10),
+        {
+          role: 'user',
+          content: message
+        }
+      ];
+
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${openAIApiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: messages,
+          temperature: 0.7,
+          max_tokens: 500,
+          stream: false,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('OpenAI API error:', errorData);
+        throw new Error(`OpenAI API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      aiResponse = data.choices[0].message.content;
     }
 
-    const data = await response.json();
-    const aiResponse = data.choices[0].message.content;
-
-    console.log('AI response generated successfully');
+    console.log('AI response generated successfully with', model);
 
     return new Response(JSON.stringify({ 
       response: aiResponse,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      model: model
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });

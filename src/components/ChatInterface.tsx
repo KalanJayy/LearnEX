@@ -1,9 +1,11 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Send, Bot, User, Loader2 } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Send, Bot, User, Loader2, Brain, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -12,6 +14,7 @@ interface Message {
   content: string;
   role: "user" | "assistant";
   timestamp: string;
+  model?: string;
 }
 
 const ChatInterface = () => {
@@ -26,6 +29,7 @@ const ChatInterface = () => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [selectedModel, setSelectedModel] = useState("openai");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
@@ -52,7 +56,7 @@ const ChatInterface = () => {
     setIsLoading(true);
 
     try {
-      console.log("Sending message to AI:", userMessage.content);
+      console.log("Sending message to AI:", userMessage.content, "using model:", selectedModel);
 
       // Prepare conversation history for context
       const conversationHistory = messages.map((msg) => ({
@@ -64,6 +68,7 @@ const ChatInterface = () => {
         body: {
           message: userMessage.content,
           conversationHistory,
+          model: selectedModel,
         },
       });
 
@@ -81,6 +86,7 @@ const ChatInterface = () => {
         content: data.response,
         role: "assistant",
         timestamp: data.timestamp || new Date().toISOString(),
+        model: data.model,
       };
 
       setMessages((prev) => [...prev, aiMessage]);
@@ -115,13 +121,38 @@ const ChatInterface = () => {
     }
   };
 
+  const getModelIcon = (model?: string) => {
+    return model === "gemini" ? <Sparkles className="w-4 h-4 text-blue-400" /> : <Brain className="w-4 h-4 text-green-400" />;
+  };
+
   return (
     <div className="bg-gradient-to-br from-black to-purple-900/80">
       <Card className="w-full max-w-4xl mx-auto h-[600px] glass-effect">
         <CardHeader className="border-b border-border/50">
-          <CardTitle className="flex items-center gap-2 text-white">
-            <Bot className="w-6 h-6 text-neon-purple" />
-            LearnEX AI Assistant
+          <CardTitle className="flex items-center justify-between text-white">
+            <div className="flex items-center gap-2">
+              <Bot className="w-6 h-6 text-neon-purple" />
+              LearnEX AI Assistant
+            </div>
+            <Select value={selectedModel} onValueChange={setSelectedModel}>
+              <SelectTrigger className="w-32 bg-background/50 border-border/50">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="openai">
+                  <div className="flex items-center gap-2">
+                    <Brain className="w-4 h-4 text-green-400" />
+                    OpenAI
+                  </div>
+                </SelectItem>
+                <SelectItem value="gemini">
+                  <div className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-blue-400" />
+                    Gemini
+                  </div>
+                </SelectItem>
+              </SelectContent>
+            </Select>
           </CardTitle>
         </CardHeader>
 
@@ -162,9 +193,19 @@ const ChatInterface = () => {
                       <p className="text-sm leading-relaxed whitespace-pre-wrap">
                         {message.content}
                       </p>
-                      <p className="text-xs opacity-70 mt-1">
-                        {new Date(message.timestamp).toLocaleTimeString()}
-                      </p>
+                      <div className="flex items-center justify-between mt-1">
+                        <p className="text-xs opacity-70">
+                          {new Date(message.timestamp).toLocaleTimeString()}
+                        </p>
+                        {message.role === "assistant" && message.model && (
+                          <div className="flex items-center gap-1">
+                            {getModelIcon(message.model)}
+                            <span className="text-xs opacity-70 capitalize">
+                              {message.model}
+                            </span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -178,7 +219,9 @@ const ChatInterface = () => {
                   <div className="glass-effect p-3 rounded-2xl">
                     <div className="flex items-center gap-2">
                       <Loader2 className="w-4 h-4 animate-spin text-neon-cyan" />
-                      <span className="text-sm">Thinking...</span>
+                      <span className="text-sm">
+                        {selectedModel === "gemini" ? "Gemini" : "OpenAI"} is thinking...
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -193,7 +236,7 @@ const ChatInterface = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Ask me anything about learning, careers, or skills..."
+                placeholder={`Ask ${selectedModel === "gemini" ? "Gemini" : "OpenAI"} about learning, careers, or skills...`}
                 disabled={isLoading}
                 className="flex-1 bg-background/50 border-border/50 focus:border-neon-cyan"
               />
