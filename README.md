@@ -1,5 +1,5 @@
 
-# LearnEX AI - Learning & Career Development Platform
+# LearnEX - Learning & Career Development Platform
 
 A modern web application that helps users with learning and career development through AI-powered assistance and personalized roadmaps.
 
@@ -19,7 +19,6 @@ A modern web application that helps users with learning and career development t
 
 ### AI Integration
 - **Google Gemini AI** - Advanced language model for chat assistance
-- **OpenAI GPT** - Alternative AI model option
 
 ### Additional Libraries
 - **React Router** - Client-side routing
@@ -61,26 +60,5 @@ A modern web application that helps users with learning and career development t
 - Protected routes and authentication
 - Environment variable management
 
-## Getting Started
-
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Set up environment variables for API keys
-4. Start development server: `npm run dev`
-5. Build for production: `npm run build`
-
-## Project Structure
-
-```
-src/
-├── components/          # Reusable UI components
-├── pages/              # Application pages
-├── hooks/              # Custom React hooks
-├── integrations/       # Third-party service integrations
-├── contexts/           # React context providers
-└── lib/               # Utility functions
-```
-
-## Contributing
 
 This project follows modern React development practices with TypeScript, comprehensive component architecture, and robust state management patterns.
